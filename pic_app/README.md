@@ -1,6 +1,6 @@
 # pic_app
 
-![Screenshot](C:\Users\Yanwei\Documents\GitHub\flutter-app\pic_app\Screenshot.png)
+![https://github.com/e96031413/flutter-app/blob/master/pic_app/Screenshot.png]()
 
 網路圖片APP
 
@@ -12,3 +12,4 @@ flutter run
 
 ------
 
+![]()
