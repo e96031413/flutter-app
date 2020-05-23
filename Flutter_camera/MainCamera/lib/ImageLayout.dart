@@ -1,19 +1,39 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:MainCamera/ImageFilter.dart';
-import 'package:MainCamera/ImageLayout.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
-class PreviewImageScreen extends StatefulWidget {
+
+class ImageLayoutScreen extends StatefulWidget {
   final String imagePath;
+  
 
-  PreviewImageScreen({this.imagePath});
+  ImageLayoutScreen({this.imagePath});
 
   @override
-  _PreviewImageScreenState createState() => _PreviewImageScreenState();
+  _ImageLayoutScreenState createState() => _ImageLayoutScreenState();
 }
 
-class _PreviewImageScreenState extends State<PreviewImageScreen> {
+class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
+    Future<void> _shareImage() async {
+    try {
+      var now = new DateTime.now();
+      var formatter = new DateFormat('yyyy-MM-dd--hh-mm-ss');    
+      String formattedDate = formatter.format(now);
+      String ext = ".jpg";
+      String fileName = formattedDate+ext;
+
+      final ByteData bytes = await rootBundle.load(widget.imagePath);
+      await Share.file(
+          '分享圖片', fileName, bytes.buffer.asUint8List(), 'image/jpg');
+    } catch (e) {
+      print('error: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +61,9 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                     child: ButtonTheme(
                     child: new RaisedButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      color: Colors.green,
-                      child: Text("濾鏡", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {
-                        Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new ImageFilterScreen(imagePath: widget.imagePath)), //ImageFilterScreen
-                          );
-                      }, 
+                      color: Colors.indigoAccent,
+                      child: Text("分享", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: _shareImage,
                     ),
                   ),
                   ),
@@ -57,13 +73,9 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                     child: ButtonTheme(
                     child: new RaisedButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      color: Colors.orange,
-                      child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {
-                          Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new ImageLayoutScreen(imagePath: widget.imagePath)), //ImageFilterScreen
-                          );
-                      },
+                      color: Colors.cyanAccent,
+                      child: Text("列印", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {},
                     ),
                   ),
                   ),
@@ -74,5 +86,9 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
       ),
       ),
     );
+  }
+  Future<ByteData> getBytesFromFile() async {
+    Uint8List bytes = File(widget.imagePath).readAsBytesSync() as Uint8List;
+    return ByteData.view(bytes.buffer);
   }
 }

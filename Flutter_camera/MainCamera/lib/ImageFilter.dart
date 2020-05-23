@@ -5,22 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
-import 'package:image_picker/image_picker.dart';
+import 'package:MainCamera/ImageLayout.dart';
+void main() => runApp(new MaterialApp(home: ImageFilterScreen()));
 
-void main() => runApp(new MaterialApp(home: MyApp()));
+class ImageFilterScreen extends StatefulWidget {
+  
+  String imagePath;
+  ImageFilterScreen({Key key, this.imagePath}) : super(key: key);
 
-class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+    _MyAppState createState() => new _MyAppState();
+  
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<ImageFilterScreen> {
   String fileName;
   List<Filter> filters = presetFiltersList;
-  File imageFile;
-
+  File imageFile;  // image picked from gallery.
+  File imagePath;  // image taken from previous screen.
+  
   Future getImage(context) async {
-    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    imageFile = File (widget.imagePath);  // 將路徑以檔案方式開啟
     fileName = basename(imageFile.path);
     var image = imageLib.decodeImage(imageFile.readAsBytesSync());
     image = imageLib.copyResize(image, width: 600);
@@ -42,6 +47,12 @@ class _MyAppState extends State<MyApp> {
         imageFile = imagefile['image_filtered'];
       });
       print(imageFile.path);
+                Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ImageLayoutScreen(imagePath: imageFile.path),
+            ),
+          );
     }
   }
 
@@ -55,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         child: new Container(
           child: imageFile == null
               ? Center(
-                  child: new Text('No image selected.'),
+                  child: new Text('點擊右下角按鈕開始使用濾鏡'),
                 )
               : Image.file(imageFile),
         ),

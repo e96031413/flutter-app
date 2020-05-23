@@ -28,15 +28,17 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
-  responsive_grid: any
-  camera: any
+  responsive_grid: any #RWD功能
+  camera: any #相機
   path_provider: any
-  path: any
-  esys_flutter_share: any
+  path: any #路徑
+  esys_flutter_share: any #分享
   image: any
-  image_picker: any
-  printing: ^3.4.0
-  photofilters: ^1.0.5
+  image_picker: any #挑選圖片
+  printing: ^3.4.0 #列印檔案
+  photofilters: ^1.0.5 #照片濾鏡
+  gallery_saver: any #拍照並保存到本地
+  intl: any # 處理時間
 
 dev_dependencies:
   flutter_test:
