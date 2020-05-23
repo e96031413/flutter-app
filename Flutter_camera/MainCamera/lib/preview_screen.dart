@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:responsive_grid/responsive_grid.dart';
+import 'ImageFilter.dart';
+
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
@@ -18,40 +19,62 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preview'),
+        title: Text('圖片預覽'),
         backgroundColor: Colors.blueGrey,
       ),
       body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-                flex: 2,
-                child: Image.file(File(widget.imagePath), fit: BoxFit.cover)),
-            SizedBox(height: 10.0),
-            Flexible(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(60.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    getBytesFromFile().then((bytes) {
-                      Share.file('Share via:', basename(widget.imagePath),
-                          bytes.buffer.asUint8List(), 'image/png');
-                    });
-                  },
-                  child: Text('Share'),
-                ),
-              ),
-            ),
-          ],
-        ),
+        margin:EdgeInsets.all(0.0),
+        child:SingleChildScrollView(
+        child: Container(
+        child: 
+        ResponsiveGridRow(
+                children: [ResponsiveGridCol(
+                    xs: 12,
+                    md: 12,
+                    child: ButtonTheme(
+                    child: Image.file(File(widget.imagePath), 
+                                      height: 550,
+                                      fit: BoxFit.fitWidth )) 
+                    ),
+                  ResponsiveGridCol(
+                    xs: 6,
+                    md: 6,
+                    child: ButtonTheme(
+                    child: new RaisedButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+                      color: Colors.green,
+                      child: Text("濾鏡", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(context,new MaterialPageRoute(
+                          builder: (context) => new MyApp()),
+                          );
+                                    }, 
+                    ),
+                  ),
+                  ),
+                  ResponsiveGridCol(
+                    xs: 6,
+                    md: 6,
+                    child: ButtonTheme(
+                    child: new RaisedButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+                      color: Colors.orange,
+                      child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {},
+                    ),
+                  ),
+                  ),
+                ]
+          ),
+        
+    ),
+      ),
       ),
     );
   }
 
-  Future<ByteData> getBytesFromFile() async {
-    Uint8List bytes = File(widget.imagePath).readAsBytesSync() as Uint8List;
-    return ByteData.view(bytes.buffer);
-  }
+  // Future<ByteData> getBytesFromFile() async {
+  //   Uint8List bytes = File(widget.imagePath).readAsBytesSync() as Uint8List;
+  //   return ByteData.view(bytes.buffer);
+  // }
 }

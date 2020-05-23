@@ -39,9 +39,8 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.blueAccent,
       body: Padding(
         padding: EdgeInsets.all(20.0),
-        child:       SingleChildScrollView(
+        child:SingleChildScrollView(
         child: Container(
-          
         child: 
         ResponsiveGridRow(
                 children: [ResponsiveGridCol(
@@ -54,50 +53,10 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                   ResponsiveGridCol(
-                    xs: 4,
-                    md: 3,
+                    xs: 12,
+                    md: 12,
                     child: ButtonTheme(
-                    child: new RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      color: Colors.green,
-                      child: Text("濾鏡", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {}, 
-                    ),
-                  ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 4,
-                    md: 3,
-                    child: ButtonTheme(
-                    child: new RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      color: Colors.orange,
-                      child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {},
-                    ),
-                  ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 4,
-                    md: 3,
-                    child: ButtonTheme(
-                    child: new RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      color: Colors.red,
-                      child: Text("分享", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {
-                        Navigator.push(
-                          context, new MaterialPageRoute(builder: (context) => new ShareImageScreen()),
-                        );
-                      },
-                    ),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 4,
-                    child: ButtonTheme(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       child: new RaisedButton(
                       color: Colors.yellowAccent,
                       child: Text("拍照", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
@@ -109,20 +68,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     ),
                   ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 3,
-                    child: ButtonTheme(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
-                      child: RaisedButton(
-                      color: Colors.blueGrey,
-                      child: Text("列印", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {},
-                    ),
-                    ),
-                  ),
-                ]
-          ),
+                ]),
         
     ),
       ),

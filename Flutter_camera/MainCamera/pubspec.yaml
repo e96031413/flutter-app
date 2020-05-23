@@ -33,7 +33,10 @@ dependencies:
   path_provider: any
   path: any
   esys_flutter_share: any
+  image: any
   image_picker: any
+  printing: ^3.4.0
+  photofilters: ^1.0.5
 
 dev_dependencies:
   flutter_test:

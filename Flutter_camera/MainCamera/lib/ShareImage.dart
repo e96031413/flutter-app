@@ -6,8 +6,6 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
-
 
 class ShareImageScreen extends StatefulWidget {
   @override
@@ -16,11 +14,14 @@ class ShareImageScreen extends StatefulWidget {
 
 class _ShareImageScreenState extends State<ShareImageScreen> {
   File _image;
+  var image;
+  Directory directory;
+  String bgPath;
 
   Future<void> _shareImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    Directory directory  = await getApplicationDocumentsDirectory();
-    String bgPath = directory.uri.resolve('IMG_20200515_075806.jpg').path;
+    image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    directory  = await getApplicationDocumentsDirectory();
+    bgPath = directory.uri.resolve('IMG_20200515_075806.jpg').path;
     
     setState(() {
       _image = image;
@@ -29,7 +30,7 @@ class _ShareImageScreenState extends State<ShareImageScreen> {
     try {
       final ByteData bytes = image as ByteData;
       await Share.file(
-          'image', bgPath, bytes.buffer.asUint8List(), 'image/jpg',);
+          'Share via:', bgPath, bytes.buffer.asUint8List(), 'image/png',);
     } catch (e) {
       print('error: $e');
     }
@@ -43,7 +44,12 @@ class _ShareImageScreenState extends State<ShareImageScreen> {
       actions: <Widget>[
         FlatButton(
           textColor: Colors.white,
-          onPressed: () async => await _shareImage(),
+          onPressed: () {
+                    getBytesFromFile().then((bytes) {
+                      Share.file('Share via:', bgPath,
+                          bytes.buffer.asUint8List(), 'image/png');
+                    });
+                  },
           child: Text('分享照片'),
           shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
         )
@@ -61,9 +67,9 @@ class _ShareImageScreenState extends State<ShareImageScreen> {
       ),
       );
   }
-  //   Future<ByteData> getBytesFromFile() async {
-  //   Uint8List bytes = File(imagePath).readAsBytesSync() as Uint8List;
-  //   return ByteData.view(bytes.buffer);
-  // }
+  Future<ByteData> getBytesFromFile() async {
+    Uint8List bytes = File(bgPath).readAsBytesSync() as Uint8List;
+    return ByteData.view(bytes.buffer);
+  }
 }
 
