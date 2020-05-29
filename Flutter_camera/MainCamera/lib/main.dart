@@ -1,11 +1,6 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
-import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/CameraTaken.dart';
-import 'package:MainCamera/preview_screen.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
@@ -57,7 +58,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     child: Container(
                       height: 250,
                       alignment: Alignment.center,
-                      child: Image.asset((widget.imagePath)),
+                      child: Image.file(File(widget.imagePath)),
                     ),
                   ),
                   ResponsiveGridCol(
@@ -66,7 +67,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     child: Container(
                       height: 250,
                       alignment: Alignment.center,
-                      child: Image.asset((widget.imagePath)),
+                      child: Image.file(File(widget.imagePath)),
                     ),
                   ),
                   ResponsiveGridCol(
@@ -75,7 +76,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     child: Container(
                       height: 250,
                       alignment: Alignment.center,
-                      child: Image.asset((widget.imagePath)),
+                      child: Image.file(File(widget.imagePath)),
                     ),
                   ),
                   ResponsiveGridCol(
@@ -84,7 +85,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     child: Container(
                       height: 250,
                       alignment: Alignment.center,
-                      child: Image.asset((widget.imagePath)),
+                      child: Image.file(File(widget.imagePath)),
                     ),
                   ),
                   ResponsiveGridCol(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -21,10 +22,10 @@ class _PrintingAppState extends State<PrintingApp> {
 
   Future<void> _printDocument() async {
     final doc = pw.Document();
-
+    Image.file(File(widget.imagePath));
     Printing.layoutPdf(
       onLayout: (pageFormat) async {
-        final PdfImage image = await pdfImageFromImageProvider(pdf: doc.document, image: AssetImage(widget.imagePath));        
+        final PdfImage image = await pdfImageFromImageProvider(pdf: doc.document, image: FileImage(File(widget.imagePath)));
         doc.addPage(pw.Page(
             build: (pw.Context context) => pw.Center(
               child: pw.Image(image),

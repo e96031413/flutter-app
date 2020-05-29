@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
@@ -31,7 +32,7 @@ class _LayoutDefaultScreenState extends State<LayoutDefaultScreen> {
       String formattedDate = formatter.format(now);
       String ext = ".jpg";
       String fileName = formattedDate+ext;
-
+      
       final ByteData bytes = await rootBundle.load(widget.imagePath);
       await Share.file(
           '分享圖片', fileName, bytes.buffer.asUint8List(), 'image/jpg');
@@ -59,7 +60,7 @@ class _LayoutDefaultScreenState extends State<LayoutDefaultScreen> {
                     child: Container(
                       height: 220,
                       alignment: Alignment.center,
-                      child: Image.asset((widget.imagePath)),
+                      child: Image.file(File(widget.imagePath)),
                     ),
                   ),
                 ResponsiveGridCol(
