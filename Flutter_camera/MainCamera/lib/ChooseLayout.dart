@@ -1,0 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:responsive_grid/responsive_grid.dart';
+import 'package:MainCamera/Layout_one.dart';
+import 'package:MainCamera/Layout_two.dart';
+import 'package:MainCamera/Layout_three.dart';
+import 'package:MainCamera/Layout_default.dart';
+
+void main() => runApp(ChooseLayoutScreen());
+
+class ChooseLayoutScreen extends StatefulWidget {
+  final String imagePath;
+  ChooseLayoutScreen({this.imagePath});
+  @override
+  _ChooseLayoutScreenState createState() => _ChooseLayoutScreenState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("拍照APP"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent
+      ),
+    );
+  }
+}
+// class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Center(child:Image.asset(widget.imagePath)),
+//     );
+//   }
+// }
+class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
+      @override
+      Widget build(BuildContext context){
+          return new Scaffold(
+              appBar: new AppBar(
+                  title: new Text("挑版型"),
+                  centerTitle: true,
+                  backgroundColor: Colors.blueAccent,
+              ),
+          backgroundColor: Colors.blueAccent,
+        body:
+        Center(
+          child:SingleChildScrollView(
+          child: Container(
+          child: ResponsiveGridRow(
+            children: [ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  child: new RaisedButton(
+                  color: Colors.cyanAccent,
+                  child: Text("1吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  onPressed: () {
+                    Navigator.push(context,new MaterialPageRoute(
+                      builder: (context) => new LayoutOneScreen(imagePath: widget.imagePath)), //1吋
+                      );
+                  }
+                ),
+                ),
+              ),
+              ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  child: new RaisedButton(
+                  color: Colors.cyanAccent,
+                  child: Text("2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  onPressed: () {
+                    Navigator.push(context,new MaterialPageRoute(
+                      builder: (context) => new LayoutTwoScreen(imagePath: widget.imagePath)), //2吋
+                      );
+                  }
+                ),
+                ),
+              ),
+              ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  child: new RaisedButton(
+                  color: Colors.cyanAccent,
+                  child: Text("1吋+2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  onPressed: () {
+                    Navigator.push(context,new MaterialPageRoute(
+                      builder: (context) => new LayoutThreeScreen(imagePath: widget.imagePath)), //1吋+2吋
+                      );
+                  }
+                ),
+                ),
+              ),
+              ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  child: new RaisedButton(
+                  color: Colors.cyanAccent,
+                  child: Text("原圖", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  onPressed: () {
+                    Navigator.push(context,new MaterialPageRoute(
+                      builder: (context) => new LayoutDefaultScreen(imagePath: widget.imagePath)), //1吋+2吋
+                      );
+                  }
+                ),
+                ),
+              ),
+            ]),
+        )
+    ),
+          ));
+  }
+}

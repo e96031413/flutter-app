@@ -10,8 +10,8 @@ void main() => runApp(new MaterialApp(home: ImageFilterScreen()));
 
 class ImageFilterScreen extends StatefulWidget {
   
-  String imagePath;
-  ImageFilterScreen({Key key, this.imagePath}) : super(key: key);
+  final String imagePath;
+  ImageFilterScreen({this.imagePath});
 
   @override
     _MyAppState createState() => new _MyAppState();
@@ -47,7 +47,7 @@ class _MyAppState extends State<ImageFilterScreen> {
         imageFile = imagefile['image_filtered'];
       });
       print(imageFile.path);
-                Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ImageLayoutScreen(imagePath: imageFile.path),
@@ -61,6 +61,8 @@ class _MyAppState extends State<ImageFilterScreen> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('濾鏡效果調整'),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
       ),
       body: Center(
         child: new Container(

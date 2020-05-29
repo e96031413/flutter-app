@@ -31,7 +31,7 @@ class _MyAppState extends State<CameraScreen> {
               child: Container(
                 child: SizedBox.expand(
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.blueAccent,
                     onPressed: _takePhoto,
                     child: Text(firstButtonText,
                         style:

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/ImageFilter.dart';
-import 'package:MainCamera/ImageLayout.dart';
+import 'package:MainCamera/ChooseLayout.dart';
 
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
@@ -19,8 +19,10 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('圖片預覽'),
-        backgroundColor: Colors.blueGrey,
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
       ),
+      backgroundColor: Colors.blueAccent,
       body: Container(
         margin:EdgeInsets.all(0.0),
         child:SingleChildScrollView(
@@ -61,7 +63,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                       child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                       onPressed: () {
                           Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new ImageLayoutScreen(imagePath: widget.imagePath)), //ImageFilterScreen
+                          builder: (context) => new ChooseLayoutScreen(imagePath: widget.imagePath)), //ImageFilterScreen
                           );
                       },
                     ),

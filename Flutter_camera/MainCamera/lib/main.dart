@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/CameraTaken.dart';
 import 'package:MainCamera/preview_screen.dart';
-import 'package:MainCamera/ShareImage.dart';
-
 
 void main() => runApp(MyApp());
 

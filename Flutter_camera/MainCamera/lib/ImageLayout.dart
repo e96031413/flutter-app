@@ -6,11 +6,11 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:MainCamera/ChooseLayout.dart';
 
 
 class ImageLayoutScreen extends StatefulWidget {
-  final String imagePath;
-  
+  final String imagePath; 
 
   ImageLayoutScreen({this.imagePath});
 
@@ -39,7 +39,7 @@ class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('圖片預覽'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blueAccent,
       ),
       body: Container(
         margin:EdgeInsets.all(0.0),
@@ -74,8 +74,12 @@ class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
                     child: new RaisedButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
                       color: Colors.cyanAccent,
-                      child: Text("列印", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: () {},
+                      child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(context,new MaterialPageRoute(
+                          builder: (context) => new ChooseLayoutScreen(imagePath: widget.imagePath)
+                        ));
+                      },
                     ),
                   ),
                   ),
@@ -87,7 +91,7 @@ class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
       ),
     );
   }
-  Future<ByteData> getBytesFromFile() async {
+    Future<ByteData> getBytesFromFile() async {
     Uint8List bytes = File(widget.imagePath).readAsBytesSync() as Uint8List;
     return ByteData.view(bytes.buffer);
   }
