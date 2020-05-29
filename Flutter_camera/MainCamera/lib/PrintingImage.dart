@@ -22,7 +22,6 @@ class _PrintingAppState extends State<PrintingApp> {
 
   Future<void> _printDocument() async {
     final doc = pw.Document();
-    Image.file(File(widget.imagePath));
     Printing.layoutPdf(
       onLayout: (pageFormat) async {
         final PdfImage image = await pdfImageFromImageProvider(pdf: doc.document, image: FileImage(File(widget.imagePath)));
