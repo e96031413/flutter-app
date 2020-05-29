@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/CameraTaken.dart';
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,10 +21,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class MyHomePage extends StatelessWidget {
+  final keyIsFirstLoaded = 'is_first_loaded';
+
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context));
     return Scaffold(
       appBar: AppBar(
         title: Text("拍照APP"),
@@ -68,5 +72,32 @@ class MyHomePage extends StatelessWidget {
         ),
 
     );
+  }
+    showDialogIfFirstLoaded(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstLoaded = prefs.getBool(keyIsFirstLoaded);
+    if (isFirstLoaded == null) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("注意事項："),
+            content: new Text("首次使用，請先啟動所有APP使用權限，再重啟APP執行。"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("了解！"),
+                onPressed: () {
+                  // Close the dialog
+                  prefs.setBool(keyIsFirstLoaded, false);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
