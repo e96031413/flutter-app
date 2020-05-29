@@ -30,10 +30,11 @@ class _LayoutThreeScreenState extends State<LayoutThreeScreen> {
       String formattedDate = formatter.format(now);
       String ext = ".jpg";
       String fileName = formattedDate+ext;
-
-      final ByteData bytes = await rootBundle.load(widget.imagePath);
+      File Image2share = File(widget.imagePath);
+      List<int> bytes = await Image2share.readAsBytes();
+      Uint8List ubytes = Uint8List.fromList(bytes);
       await Share.file(
-          '分享圖片', fileName, bytes.buffer.asUint8List(), 'image/jpg');
+          '分享圖片', fileName, ubytes, 'image/jpg');
     } catch (e) {
       print('error: $e');
     }
