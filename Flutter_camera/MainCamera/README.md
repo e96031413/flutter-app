@@ -1,6 +1,6 @@
 # MainCamera
 
-使用Fluteer開發之相機APP，可以拍攝照片、套用濾鏡、分享至LINE、IG、.....、雲端列印、保存圖片成PDF功能。
+使用Flutter開發之相機APP，可以拍攝照片、套用濾鏡、分享至LINE、IG、.....、雲端列印、保存圖片成PDF功能。
 
 ## 功能正常的commit版本號
 
