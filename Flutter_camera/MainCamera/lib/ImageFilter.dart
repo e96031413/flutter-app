@@ -6,6 +6,8 @@ import 'package:path/path.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:image/image.dart' as imageLib;
 import 'package:MainCamera/ImageLayout.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+
 void main() => runApp(new MaterialApp(home: ImageFilterScreen()));
 
 class ImageFilterScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class ImageFilterScreen extends StatefulWidget {
 
 class _MyAppState extends State<ImageFilterScreen> {
   String fileName;
+  String albumName ='Media';
   List<Filter> filters = presetFiltersList;
   File imageFile;  // image picked from gallery.
   File imagePath;  // image taken from previous screen.
@@ -45,6 +48,7 @@ class _MyAppState extends State<ImageFilterScreen> {
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       setState(() {
         imageFile = imagefile['image_filtered'];
+        GallerySaver.saveImage(imageFile.path, albumName: albumName);
       });
       print(imageFile.path);
           Navigator.push(
