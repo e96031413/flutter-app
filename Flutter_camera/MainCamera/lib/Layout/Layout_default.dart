@@ -2,11 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:MainCamera/PrintingImage.dart';
+import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 
 void main() => runApp(new MaterialApp(home: LayoutDefaultScreen()));
 
@@ -32,8 +31,8 @@ class _LayoutDefaultScreenState extends State<LayoutDefaultScreen> {
       String formattedDate = formatter.format(now);
       String ext = ".jpg";
       String fileName = formattedDate+ext;
-      File Image2share = File(widget.imagePath);
-      List<int> bytes = await Image2share.readAsBytes();
+      File imageShare = File(widget.imagePath);
+      List<int> bytes = await imageShare.readAsBytes();
       Uint8List ubytes = Uint8List.fromList(bytes);
       await Share.file(
           '分享圖片', fileName, ubytes, 'image/jpg');

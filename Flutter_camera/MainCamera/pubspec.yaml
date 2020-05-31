@@ -42,6 +42,7 @@ dependencies:
   printing: ^3.4.0 #列印轉換成功的pdf
   shared_preferences: ^0.5.7+3 #狀態管理
   permissions_plugin: ^1.1.4 #權限管理
+  after_layout: ^1.0.7+2 #免用onPressed去執行Function
 
 dev_dependencies:
   flutter_test:

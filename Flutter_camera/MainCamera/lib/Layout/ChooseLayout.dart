@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:MainCamera/Layout_one.dart';
-import 'package:MainCamera/Layout_two.dart';
-import 'package:MainCamera/Layout_three.dart';
-import 'package:MainCamera/Layout_default.dart';
+import 'package:MainCamera/Layout/Layout_one.dart';
+import 'package:MainCamera/Layout/Layout_two.dart';
+import 'package:MainCamera/Layout/Layout_three.dart';
+import 'package:MainCamera/Layout/Layout_default.dart';
 
 void main() => runApp(ChooseLayoutScreen());
 

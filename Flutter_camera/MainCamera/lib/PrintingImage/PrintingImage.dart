@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
+import 'package:after_layout/after_layout.dart';
+import 'package:MainCamera/main.dart';
+import 'package:MainCamera/CameraTaken/preview_screen.dart';
 
 
 void main() => runApp(PrintingApp());
@@ -18,7 +21,7 @@ class PrintingApp extends StatefulWidget {
   _PrintingAppState createState() => _PrintingAppState();
 }
 
-class _PrintingAppState extends State<PrintingApp> {
+class _PrintingAppState extends State<PrintingApp> with AfterLayoutMixin<PrintingApp> {
 
   Future<void> _printDocument() async {
     final doc = pw.Document();
@@ -34,29 +37,18 @@ class _PrintingAppState extends State<PrintingApp> {
         return doc.save();
       },
     );
-    
+    Navigator.push(context,new MaterialPageRoute(
+      // builder: (context) => new ChooseLayoutScreen(imagePath: widget.imagePath)), //ImageFilterScreen
+      // builder: (context) => new ImageFilterScreen(imagePath: widget.imagePath)), //ImageFilterScreen
+      builder: (context) => new PreviewImageScreen(imagePath: widget.imagePath)), //ImageFilterScreen
+    );
   }
   @override
   Widget build(BuildContext context) {
-    const title = '列印照片';
-    return MaterialApp(
-      title: title,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(title),
-          backgroundColor: Colors.blueAccent,
-          centerTitle: true,
-        ),
-        body: Center(
-          child: RaisedButton(
-            color: Colors.blueAccent,
-            onPressed: _printDocument,
-            child: Text("點我開始列印",
-            style:
-            TextStyle(fontSize: 20, color: Colors.white)),
-          ),
-        ),
-      ),
-    );
+    return new MaterialApp(home: MyApp());
+  }
+  void afterFirstLayout(BuildContext context) {
+    // Calling the same function "after layout" to resolve the issue.
+  _printDocument();
   }
 }

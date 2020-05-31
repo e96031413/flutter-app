@@ -2,11 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:MainCamera/PrintingImage.dart';
+import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 
 
 void main() => runApp(new MaterialApp(home: LayoutTwoScreen()));
@@ -30,8 +29,8 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
       String formattedDate = formatter.format(now);
       String ext = ".jpg";
       String fileName = formattedDate+ext;
-      File Image2share = File(widget.imagePath);
-      List<int> bytes = await Image2share.readAsBytes();
+      File imageShare = File(widget.imagePath);
+      List<int> bytes = await imageShare.readAsBytes();
       Uint8List ubytes = Uint8List.fromList(bytes);
       await Share.file(
           '分享圖片', fileName, ubytes, 'image/jpg');
@@ -49,7 +48,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
     ), 
     body: new Center(
       child: Container(
-            padding: new EdgeInsets.all(25.0),
+            padding: new EdgeInsets.all(0.0),
             color: Colors.blueAccent,
             child:ResponsiveGridRow(
                 children: [
@@ -57,7 +56,8 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     xs: 6,
                     md: 2,
                     child: Container(
-                      height: 250,
+                      width: 413,
+                      height: 532,
                       alignment: Alignment.center,
                       child: Image.file(File(widget.imagePath)),
                     ),
@@ -66,25 +66,8 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
                     xs: 6,
                     md: 2,
                     child: Container(
-                      height: 250,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 250,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 250,
+                      width: 413,
+                      height: 532,
                       alignment: Alignment.center,
                       child: Image.file(File(widget.imagePath)),
                     ),

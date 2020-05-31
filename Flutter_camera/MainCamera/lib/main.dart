@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
-import 'package:MainCamera/CameraTaken.dart';
+import 'package:MainCamera/CameraTaken/CameraTaken.dart';
 import 'dart:async';
 import 'package:permissions_plugin/permissions_plugin.dart';
 // import 'package:shared_preferences/shared_preferences.dart'; 如需要alert對話窗(首次啟動顯示，再uncomment)
@@ -28,14 +28,9 @@ class MyHomePage extends StatelessWidget {
     // Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context)); // 提示權限允許
     checkPermissions(context);  // 確認權限
     return Scaffold(
-      appBar: AppBar(
-        title: Text("拍照APP"),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ),
       backgroundColor: Colors.blueAccent,
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(0.0),
         child:SingleChildScrollView(
         child: Container(
         child: 
@@ -43,20 +38,21 @@ class MyHomePage extends StatelessWidget {
                 children: [ResponsiveGridCol(
                     lg: 12,
                     child: Container(
-                      height: 300,
+                      height: 600,
                       alignment: Alignment.center,
                       color: Colors.purpleAccent,
-                      child: Text('廣告頁', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      child: Text('廣告頁', style: TextStyle(color: Colors.white ,fontSize: 30, fontWeight: FontWeight.w500)),
                     ),
                   ),
                   ResponsiveGridCol(
                     xs: 12,
                     md: 12,
                     child: ButtonTheme(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      child: Container(
+                        height: 85,
                       child: new RaisedButton(
                       color: Colors.yellowAccent,
-                      child: Text("拍照", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      child: Text("拍照", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
                         Navigator.push(
                           context, new MaterialPageRoute(builder: (context) => new CameraScreen()),
@@ -65,7 +61,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     ),
                   ),
-                ]),
+        )]),
         
     ),
       ),
