@@ -11,8 +11,6 @@ import 'package:responsive_grid/responsive_grid.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:MainCamera/Layout/ChooseLayout.dart';
 
-
-
 void main() => runApp(new MaterialApp(home: ImageFilterScreen()));
 
 class ImageFilterScreen extends StatefulWidget {
@@ -26,12 +24,15 @@ class ImageFilterScreen extends StatefulWidget {
 }
 
 class _MyAppState extends State<ImageFilterScreen> with AfterLayoutMixin<ImageFilterScreen> {
+  
   String fileName;
   String albumName ='Media';
   List<Filter> filters = presetFiltersList;
   File imageFile;  // image picked from gallery.
   File imagePath;  // image taken from previous screen.
   
+
+
   Future getImage(context) async {
     imageFile = File (widget.imagePath);  // 將路徑以檔案方式開啟
     fileName = basename(imageFile.path);

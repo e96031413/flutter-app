@@ -18,8 +18,10 @@ class ImageLayoutScreen extends StatefulWidget {
 }
 
 class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
-  
-    Future<void> _shareImage() async {
+
+
+
+  Future<void> _shareImage() async {
     try {
       var now = new DateTime.now();
       var formatter = new DateFormat('yyyy-MM-dd--hh-mm-ss');    
@@ -92,4 +94,5 @@ class _ImageLayoutScreenState extends State<ImageLayoutScreen> {
       ),
     );
   }
+  
 }

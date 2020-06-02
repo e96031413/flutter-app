@@ -22,6 +22,7 @@ class LayoutOneScreen extends StatefulWidget  {
   }
 }
 class _LayoutOneScreenState extends State<LayoutOneScreen> {
+
   Future<void> _shareImage() async {
     try {
       var now = new DateTime.now();
@@ -38,6 +39,7 @@ class _LayoutOneScreenState extends State<LayoutOneScreen> {
       print('error: $e');
     }
   }
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

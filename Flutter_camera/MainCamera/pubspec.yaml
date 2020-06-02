@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^0.5.7+3 #狀態管理
   permissions_plugin: ^1.1.4 #權限管理
   after_layout: ^1.0.7+2 #免用onPressed去執行Function
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
