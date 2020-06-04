@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/Layout/Layout_one.dart';
 import 'package:MainCamera/Layout/Layout_two.dart';
@@ -22,17 +23,14 @@ class ChooseLayoutScreen extends StatefulWidget {
     );
   }
 }
-// class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Center(child:Image.asset(widget.imagePath)),
-//     );
-//   }
-// }
+
 class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
       @override
       Widget build(BuildContext context){
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitDown,
+            DeviceOrientation.portraitUp,
+          ]);
           return new Scaffold(
               appBar: new AppBar(
                   title: new Text("挑版型"),
@@ -100,7 +98,7 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
                   child: new RaisedButton(
                   color: Colors.cyanAccent,
-                  child: Text("原圖", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  child: Text("合成照", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   onPressed: () {
                     Navigator.push(context,new MaterialPageRoute(
                       builder: (context) => new LayoutDefaultScreen(imagePath: widget.imagePath)), //1吋+2吋
@@ -112,6 +110,6 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
             ]),
         )
     ),
-          ));
+    ));
   }
 }

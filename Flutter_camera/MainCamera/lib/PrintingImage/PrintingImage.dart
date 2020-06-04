@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:MainCamera/Layout/ChooseLayout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:MainCamera/main.dart';
 import 'package:MainCamera/CameraTaken/preview_screen.dart';
 
 
 void main() => runApp(PrintingApp());
 
 class PrintingApp extends StatefulWidget {
+
   final String imagePath;
 
   PrintingApp({this.imagePath});
@@ -45,7 +47,11 @@ class _PrintingAppState extends State<PrintingApp> with AfterLayoutMixin<Printin
   }
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(home: MyApp());
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+    return new MaterialApp(home: ChooseLayoutScreen(imagePath: widget.imagePath));
   }
   void afterFirstLayout(BuildContext context) {
     // Calling the same function "after layout" to resolve the issue.

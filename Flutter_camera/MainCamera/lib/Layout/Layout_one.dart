@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
-import 'dart:async';
-import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:responsive_grid/responsive_grid.dart';
+import 'dart:ui' as ui;
+
 import 'package:MainCamera/PrintingImage/PrintingImage.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(new MaterialApp(home: LayoutOneScreen()));
 
@@ -22,7 +25,7 @@ class LayoutOneScreen extends StatefulWidget  {
   }
 }
 class _LayoutOneScreenState extends State<LayoutOneScreen> {
-
+  
   Future<void> _shareImage() async {
     try {
       var now = new DateTime.now();
@@ -39,89 +42,112 @@ class _LayoutOneScreenState extends State<LayoutOneScreen> {
       print('error: $e');
     }
   }
-  
+  GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("1吋"),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent,
-      ), 
-    body: Center(
-        child: Container(
-            padding: new EdgeInsets.all(25.0),
-            color: Colors.green,
-            child:ResponsiveGridRow(
-                children: [
-                    ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 220,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 220,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 220,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 2,
-                    child: Container(
-                      height: 220,
-                      alignment: Alignment.center,
-                      child: Image.file(File(widget.imagePath)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 6,
-                    child: ButtonTheme(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(600)),
-                      child: new RaisedButton(
-                      color: Colors.cyanAccent,
-                      child: Text("分享", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: _shareImage,
-                    ),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 6,
-                    md: 6,
-                    child: ButtonTheme(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(600)),
-                      child: new RaisedButton(
-                      color: Colors.lightGreenAccent,
-                      child: Text("列印", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed:(){
-                        Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new PrintingApp(imagePath: widget.imagePath)
-                        ));
-                      }
-                    ),
-                    ),
-                  ),
-                ]                
-          ),
-  ),
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    return RepaintBoundary(
+    key: _globalKey,
+    child: Scaffold(
 
-    ));
+    body: OrientationBuilder(
+      builder: (context, orientation) {
+        return GridView.count(
+          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          childAspectRatio: 1,
+          children: <Widget>[
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Image.file(File(widget.imagePath)),
+                    Center(
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      onPressed: _shareImage,
+                      color: Colors.cyanAccent,
+                      child: Text("分享", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                      )
+                    ),
+                    Center(
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      onPressed:(){
+                      Navigator.push(context,new MaterialPageRoute(
+                        builder: (context) => new PrintingApp(imagePath: widget.imagePath)
+                      ));
+                      },
+                      color: Colors.cyanAccent,
+                      child: Text("列印", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                      )
+                    ),
+                    Center(
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      onPressed:_capturePng,
+                      color: Colors.cyanAccent,
+                      child: Text("截圖", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                      )
+                    ),
+                    Center(
+                    child: FlatButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+                      onPressed: () {
+                          Navigator.pop(context);
+                      },
+                      color: Colors.cyanAccent,
+                      child: Text("回上頁", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                      )
+                    ),
+          ]
+      );
+      })
+          ),
+  );
+}
+Future<Uint8List> _capturePng() async {
+    try {
+      RenderRepaintBoundary boundary =
+          _globalKey.currentContext.findRenderObject();
+
+      ui.Image image = await boundary.toImage(
+        pixelRatio: 10.0,
+      );
+
+      ByteData byteData = await image.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
+
+      Uint8List uint8list = byteData.buffer.asUint8List();
+
+      setState(() {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) {
+            return Scaffold(
+              appBar: AppBar(title: Text('查看页面'), centerTitle: true),
+              body: ListView(
+                children: <Widget>[
+                  Image.memory(
+                    uint8list,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ],
+              ),
+            );
+          }),
+        );
+      });
+
+    return uint8list;
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 }

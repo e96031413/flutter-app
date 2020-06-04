@@ -44,6 +44,8 @@ dependencies:
   permissions_plugin: ^1.1.4 #權限管理
   after_layout: ^1.0.7+2 #免用onPressed去執行Function
   http: ^0.12.1
+  flutter_image_editor: ^1.2.0
+  dart_random_choice: ^0.0.2
 
 dev_dependencies:
   flutter_test:

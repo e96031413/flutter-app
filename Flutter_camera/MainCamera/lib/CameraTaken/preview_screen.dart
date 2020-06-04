@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/ImageFilter/ImageFilter.dart';
 import 'package:MainCamera/Layout/ChooseLayout.dart';
+
+import 'package:dart_random_choice/dart_random_choice.dart';
+
 
 
 class PreviewImageScreen extends StatefulWidget {
@@ -25,16 +29,19 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     super.initState();
   }
   _asyncMethod() async{
+    var list = ['ntyZUK61FBYxTP6bBC1wjE3v','Ku3QMEF6poYNdB4DVEFvfFnt'];
+    var apikey = randomChoice(list);
     List<int> imageBytes = File(widget.imagePath).readAsBytesSync();
     print(imageBytes);
     String base64Image = base64Encode(imageBytes);
     final body = {"image_file_b64": base64Image, "size": "auto"};
-    final headers = {"X-API-Key": "daTcbirNP1BX2XUGQjh6RqWb "};
+    final headers = {"X-API-Key": apikey};
     final response = await http.post('https://api.remove.bg/v1.0/removebg', 
         body: body,
         headers: headers);
 
     if (response.statusCode == 200) {
+      print("API Used:" + apikey);
       var documentDirectory = await getApplicationDocumentsDirectory();
       var firstPath = documentDirectory.path + "/images";
       var filePathAndName = documentDirectory.path + '/images/pic.jpg'; 
@@ -48,11 +55,16 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
       } else {
     throw Exception('Failed to do network requests: Error Code: ${response.statusCode}\nBody: ${response.body}');
       }
+    
   }
   String imageData;
   bool dataLoaded = false;
 
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     if (dataLoaded){
     return Scaffold(
       appBar: AppBar(
@@ -60,7 +72,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
       body: Container(
         margin:EdgeInsets.all(0.0),
         child:SingleChildScrollView(
