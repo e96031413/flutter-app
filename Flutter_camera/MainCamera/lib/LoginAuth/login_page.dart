@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:MainCamera/LoginAuth/sign_in.dart';
-import 'package:MainCamera/LoginAuth/login_status.dart';
 
-
+// 1. 主畫面(登入Google帳號)
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -29,18 +28,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // 1-2 Sign In功能，當登入完成後，進入登入狀態頁面
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return LoginStatusScreen();
-              },
-            ),
-          );
+              // 1-2-1 登入成功後，進入DefaultPage頁面，並刪除之前的所有路由，該頁面變成第一層(使用者無法再回到登入頁面)
+          Navigator.of(context).pushNamedAndRemoveUntil('/DefaultPage', (Route<dynamic> route) => false);
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

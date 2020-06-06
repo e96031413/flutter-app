@@ -1,123 +1,63 @@
-import 'package:flutter/material.dart';
-import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/CameraTaken/CameraTaken.dart';
 import 'package:MainCamera/CameraTaken/PickFromGallery.dart';
+import 'package:MainCamera/CameraTaken/BackGroundRemove.dart';
+import 'package:MainCamera/ImageFilter/ImageFilter.dart';
+import 'package:MainCamera/Layout/ChooseLayout.dart';
+import 'package:MainCamera/Layout/Layout_default.dart';
+import 'package:MainCamera/Layout/Layout_one.dart';
+import 'package:MainCamera/Layout/Layout_three.dart';
+import 'package:MainCamera/Layout/Layout_two.dart';
+import 'package:MainCamera/PreviewImage/PreviewImage.dart';
+import 'package:MainCamera/PrintingImage/PrintingImage.dart';
+import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'package:permissions_plugin/permissions_plugin.dart';
 import 'package:MainCamera/LoginAuth/login_page.dart';
+import 'package:MainCamera/CameraTaken/DefaultPage.dart';
+import 'package:MainCamera/routes.dart';
+
 // import 'package:shared_preferences/shared_preferences.dart'; 如需要alert對話窗(首次啟動顯示，再uncomment)
 
+// 1. 主畫面(登入Google帳號)
 void main() => runApp(MyAppMain());
 
 class MyAppMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    checkPermissions(context);  // 確認權限
     return MaterialApp(
       title: 'Flutter Login',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
-    );
+      routes: {       //建立Route
+        MainCameraRoutes.loginPage: (context) => LoginPage(),
+        MainCameraRoutes.deafultPage: (context) => DefaultPage(),
+        MainCameraRoutes.cameraTaken: (context) => CameraScreen(),
+        MainCameraRoutes.fromGallery: (context) => FromGalleryScreen(),
+        MainCameraRoutes.previewImage: (context) => PreviewImageScreen(),
+        MainCameraRoutes.imageFilter: (context) => ImageFilterScreen(),
+        MainCameraRoutes.chooseLayout: (context) => ChooseLayoutScreen(),
+        MainCameraRoutes.layoutDefault: (context) => LayoutDefaultScreen(),
+        MainCameraRoutes.layoutOne: (context) => LayoutOneScreen(),
+        MainCameraRoutes.layoutTwo: (context) => LayoutTwoScreen(),
+        MainCameraRoutes.layoutThree: (context) => LayoutThreeScreen(),
+        MainCameraRoutes.imageLayout: (context) => ImageLayoutScreen(),
+        MainCameraRoutes.printApp: (context) => PrintingApp(),
+      },
+      onGenerateRoute: (settings) {    //預設進入LoginPage()
+        switch (settings.name) {
+          case MainCameraRoutes.root:
+            return MaterialPageRoute(builder: (context) => LoginPage());
+          default:
+            return MaterialPageRoute(builder: (context) => LoginPage());
+            }
+          },
+        );
+      }
   }
-}
-
-class MainPage extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
-      routes: <String, WidgetBuilder> {
-          '/MyHomePage': (BuildContext context) => new MyHomePage(),
-          '/CameraScreen' : (BuildContext context) => new CameraScreen(),
-          '/FromGalleryScreen' : (BuildContext context) => new FromGalleryScreen(),
-        },
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-class MyHomePage extends StatelessWidget {
-  // final keyIsFirstLoaded = 'is_first_loaded';
-  @override
-  Widget build(BuildContext context) {
-    // Future.delayed(Duration.zero, () => showDialogIfFirstLoaded(context)); // 提示權限允許
-    checkPermissions(context);  // 確認權限
-    return Scaffold(
-      backgroundColor: Colors.blueAccent,
-      body: Padding(
-        padding: EdgeInsets.all(0.0),
-        child:SingleChildScrollView(
-        child: Container(
-        child: 
-        ResponsiveGridRow(
-                children: [ResponsiveGridCol(
-                    lg: 12,
-                    child: Container(
-                      height: 562,
-                      alignment: Alignment.center,
-                      color: Colors.purpleAccent,
-                      child: Text('廣告頁', style: TextStyle(color: Colors.white ,fontSize: 30, fontWeight: FontWeight.w500)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 12,
-                    md: 12,
-                    child: ButtonTheme(
-                      child: Container(
-                        height: 60,
-                      child: new RaisedButton(
-                      color: Colors.blueAccent,
-                      child: Text("拍照", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return CameraScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                    ),
-                  ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 12,
-                    md: 12,
-                    child: ButtonTheme(
-                      child: Container(
-                        height: 60,
-                      child: new RaisedButton(
-                      color: Colors.yellowAccent,
-                      child: Text("從手機取得圖片", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return FromGalleryScreen();
-                            },
-                          ),
-                        );                      },
-                    ),
-                    ),
-                  ),
-                  )
-                  ]
-        ),
-        
-    ),
-      ),
-        ),
-
-    );
-  }
-  
-  // 確認權限
+  // 1-1 確認APP權限Function
   Future<void> checkPermissions(BuildContext context) async {
 
     final PermissionState aks = await PermissionsPlugin.isIgnoreBatteryOptimization;
@@ -128,6 +68,7 @@ class MyHomePage extends StatelessWidget {
 
     print(resBattery);
     
+    // 1-1-1確定相機、外部儲存空間寫入權限
     Map<Permission, PermissionState> permission = await PermissionsPlugin
         .checkPermissions([
       Permission.CAMERA,
@@ -135,6 +76,7 @@ class MyHomePage extends StatelessWidget {
       Permission.WRITE_EXTERNAL_STORAGE
     ]);
 
+    // 1-1-2 假如權限設定不通過，再次設定權限
     if( permission[Permission.CAMERA] != PermissionState.GRANTED || 
         permission[Permission.READ_EXTERNAL_STORAGE] != PermissionState.GRANTED ||
         permission[Permission.WRITE_EXTERNAL_STORAGE] != PermissionState.GRANTED){
@@ -149,7 +91,7 @@ class MyHomePage extends StatelessWidget {
       } on Exception {
         debugPrint("Error");
       }
-
+      // 1-1-3 假如權限設定通過，顯示授權成功；否則進入權限授權失敗Function
       if( permission[Permission.CAMERA] == PermissionState.GRANTED &&
           permission[Permission.READ_EXTERNAL_STORAGE] == PermissionState.GRANTED &&
           permission[Permission.WRITE_EXTERNAL_STORAGE] == PermissionState.GRANTED
@@ -162,7 +104,7 @@ class MyHomePage extends StatelessWidget {
       print("授權成功");
     }
   }
-
+  // 1-1-3 APP權限授權失敗處理Function
   void permissionsDenied(BuildContext context){
     showDialog(context: context, builder: (BuildContext _context) {
       return SimpleDialog(
@@ -212,4 +154,3 @@ class MyHomePage extends StatelessWidget {
 //     }
 //   }
 // 
-}

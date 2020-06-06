@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +10,7 @@ import 'package:MainCamera/Layout/ChooseLayout.dart';
 
 import 'package:dart_random_choice/dart_random_choice.dart';
 
-
+// 3. 去背功能+去背後預覽
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
 
@@ -27,28 +26,29 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     _asyncMethod();
     super.initState();
   }
+  // 3-1 去背Function
   _asyncMethod() async{
-    var list = ['ntyZUK61FBYxTP6bBC1wjE3v','Ku3QMEF6poYNdB4DVEFvfFnt'];
-    var apikey = randomChoice(list);
-    List<int> imageBytes = File(widget.imagePath).readAsBytesSync();
-    print(imageBytes);
-    String base64Image = base64Encode(imageBytes);
-    final body = {"image_file_b64": base64Image, "size": "auto"};
-    final headers = {"X-API-Key": apikey};
-    final response = await http.post('https://api.remove.bg/v1.0/removebg', 
+    var list = ['ntyZUK61FBYxTP6bBC1wjE3v'];   // 可申請多個API Key做成list
+    var apikey = randomChoice(list);   // 隨機選擇API Key
+    List<int> imageBytes = File(widget.imagePath).readAsBytesSync(); // 用bytes格式讀取照片
+    String base64Image = base64Encode(imageBytes);  // 加密成base64碼
+    final body = {"image_file_b64": base64Image, "size": "auto"};   //圖片路徑即為base64碼
+    final headers = {"X-API-Key": apikey};   // 加入API Key
+    final response = await http.post('https://api.remove.bg/v1.0/removebg', // 用http套件post到remove.bg網站
         body: body,
         headers: headers);
     if (response.statusCode == 200) {
-      print("API Used:" + apikey);
-      var documentDirectory = await getApplicationDocumentsDirectory();
-      var firstPath = documentDirectory.path + "/images";
+      print("API Key Used:" + apikey);     // 顯示使用的API Key是哪一個
+      var documentDirectory = await getApplicationDocumentsDirectory(); // 取得APP的路徑位置
+      var firstPath = documentDirectory.path + "/images";  
       var filePathAndName = documentDirectory.path + '/images/pic.jpg'; 
-      await Directory(firstPath).create(recursive: true);
-      File file2 = new File(filePathAndName);
-      file2.writeAsBytesSync(response.bodyBytes);
-      setState(() {
-        imageData = filePathAndName;
-        dataLoaded = true;
+      await Directory(firstPath).create(recursive: true); // 建立資料夾
+      File file2 = new File(filePathAndName);  // 新建file2檔案，檔名用filePathAndName變數產生的檔名
+      file2.writeAsBytesSync(response.bodyBytes); //將API回傳的Bytes檔案寫入到file2
+      
+      setState(() {                    // 當上述程式執行成功：
+        imageData = filePathAndName;   // 令 imageData = filePathAndName
+        dataLoaded = true;             // 設定圖片回傳 = true
       });
       } else {
     throw Exception('Failed to do network requests: Error Code: ${response.statusCode}\nBody: ${response.body}');
@@ -56,14 +56,11 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     
   }
   String imageData;
-  bool dataLoaded = false;
+  bool dataLoaded = false;   // 圖片回傳預設 = false，代表初始還沒去背狀態
 
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
-    if (dataLoaded){
+
+    if (dataLoaded){     // 3-1-1 假設回傳 = true，顯示以下UI畫面(去背圖片效果顯示)
     return Scaffold(
       appBar: AppBar(
         title: Text('圖片預覽'),
@@ -95,7 +92,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                       child: Text("濾鏡", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                       onPressed: () {
                         Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new ImageFilterScreen(imagePath: imageData)), //濾鏡
+                          builder: (context) => new ImageFilterScreen(imagePath: imageData)), //進入濾鏡功能頁面
                           );
                       }, 
                     ),
@@ -111,7 +108,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
                       child: Text("挑版型", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                       onPressed: () {
                           Navigator.push(context,new MaterialPageRoute(
-                          builder: (context) => new ChooseLayoutScreen(imagePath: imageData)), //挑版型
+                          builder: (context) => new ChooseLayoutScreen(imagePath: imageData)), // 進入挑版型頁面
                           );
                       },
                     ),
@@ -126,7 +123,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     );
   }
 
-else {
+else {                      // 3-1-2 假設回傳 = false，顯示以下UI畫面(圓形進度條呈現)
       return MaterialApp(
         home: Scaffold(
       body: HomePage(),
@@ -141,7 +138,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: Center(
-        child: CircularProgressIndicator(
+        child: CircularProgressIndicator(                   // 呈現進度條
         backgroundColor: Colors.grey[200],
         valueColor: AlwaysStoppedAnimation(Colors.blue),
     ),

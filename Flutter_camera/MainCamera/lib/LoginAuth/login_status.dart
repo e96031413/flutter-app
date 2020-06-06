@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:MainCamera/LoginAuth/login_page.dart';
 import 'package:MainCamera/LoginAuth/sign_in.dart';
-import 'package:MainCamera/main.dart';
 
 class LoginStatusScreen extends StatelessWidget {
   @override
@@ -60,8 +59,12 @@ class LoginStatusScreen extends StatelessWidget {
               SizedBox(height: 40),
               RaisedButton(
                 onPressed: () {
-                  signOutGoogle();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return MainPage();}), ModalRoute.withName('/'));
+                  // Navigator.of(context).pushNamed('/DefaultPage');
+                  Navigator.of(context).pushReplacementNamed('/DefaultPage');
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => DefaultPage()));
+                  // Navigator.popAndPushNamed(context, '/DefaultPage');
+                  // Navigator.maybePop(context, '/DefaultPage');
+                  // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return DefaultPage();}), ModalRoute.withName('/'));
                 },
                 color: Colors.deepPurple,
                 child: Padding(

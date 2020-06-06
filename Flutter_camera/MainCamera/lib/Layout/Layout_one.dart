@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+// 6-2-1 1吋版型的主頁
 void main() => runApp(new MaterialApp(home: LayoutOneScreen()));
 
 class LayoutOneScreen extends StatefulWidget  {
@@ -45,10 +46,6 @@ class _LayoutOneScreenState extends State<LayoutOneScreen> {
   GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
     return RepaintBoundary(
     key: _globalKey,
     child: Scaffold(

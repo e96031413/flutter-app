@@ -9,6 +9,8 @@ import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
+// 6-2-2 2吋版型的主頁
+
 void main() => runApp(new MaterialApp(home: LayoutTwoScreen()));
 
 class LayoutTwoScreen extends StatefulWidget  {
@@ -44,10 +46,7 @@ class _LayoutTwoScreenState extends State<LayoutTwoScreen> {
   GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+
     return RepaintBoundary(
     key: _globalKey,
     child: Scaffold(

@@ -9,6 +9,8 @@ import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
+// 6-2-3 1吋+2吋版型的主頁
+
 void main() => runApp(new MaterialApp(home: LayoutThreeScreen()));
 
 class LayoutThreeScreen extends StatefulWidget  {
@@ -44,10 +46,6 @@ class _LayoutThreeScreenState extends State<LayoutThreeScreen> {
   GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
     return RepaintBoundary(
     key: _globalKey,
     child: Scaffold(

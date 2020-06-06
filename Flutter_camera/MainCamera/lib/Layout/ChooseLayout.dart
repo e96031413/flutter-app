@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/Layout/Layout_one.dart';
 import 'package:MainCamera/Layout/Layout_two.dart';
 import 'package:MainCamera/Layout/Layout_three.dart';
 import 'package:MainCamera/Layout/Layout_default.dart';
 
+// 6. 挑版型主頁
 void main() => runApp(ChooseLayoutScreen());
 
 class ChooseLayoutScreen extends StatefulWidget {
@@ -24,13 +24,10 @@ class ChooseLayoutScreen extends StatefulWidget {
   }
 }
 
+// 6-1 挑版型主頁(靜態UI)
 class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
       @override
       Widget build(BuildContext context){
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitDown,
-            DeviceOrientation.portraitUp,
-          ]);
           return new Scaffold(
               appBar: new AppBar(
                   title: new Text("挑版型"),
@@ -53,7 +50,7 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                   child: Text("1吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   onPressed: () {
                     Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutOneScreen(imagePath: widget.imagePath)), //1吋
+                      builder: (context) => new LayoutOneScreen(imagePath: widget.imagePath)), // 6-1-1 進入1吋版型頁面
                       );
                   }
                 ),
@@ -69,7 +66,7 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                   child: Text("2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   onPressed: () {
                     Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutTwoScreen(imagePath: widget.imagePath)), //2吋
+                      builder: (context) => new LayoutTwoScreen(imagePath: widget.imagePath)), // 6-1-2 進入2吋版型頁面
                       );
                   }
                 ),
@@ -85,7 +82,7 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                   child: Text("1吋+2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   onPressed: () {
                     Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutThreeScreen(imagePath: widget.imagePath)), //1吋+2吋
+                      builder: (context) => new LayoutThreeScreen(imagePath: widget.imagePath)), // 6-1-3 進入1吋+2吋版型頁面
                       );
                   }
                 ),
@@ -101,7 +98,7 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                   child: Text("合成照", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                   onPressed: () {
                     Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutDefaultScreen(imagePath: widget.imagePath)), //1吋+2吋
+                      builder: (context) => new LayoutDefaultScreen(imagePath: widget.imagePath)), // 6-1-4 進入合成照版型頁面
                       );
                   }
                 ),

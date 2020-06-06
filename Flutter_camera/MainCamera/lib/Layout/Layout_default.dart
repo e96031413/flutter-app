@@ -9,6 +9,8 @@ import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
+// 6-2-4 合成照版型的主頁
+
 void main() => runApp(new MaterialApp(home: LayoutDefaultScreen()));
 
 class LayoutDefaultScreen extends StatefulWidget  {
