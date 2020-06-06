@@ -10,12 +10,12 @@ import 'package:MainCamera/Layout/Layout_two.dart';
 import 'package:MainCamera/PreviewImage/PreviewImage.dart';
 import 'package:MainCamera/PrintingImage/PrintingImage.dart';
 import 'package:flutter/material.dart';
-
 import 'dart:async';
 import 'package:permissions_plugin/permissions_plugin.dart';
 import 'package:MainCamera/LoginAuth/login_page.dart';
 import 'package:MainCamera/CameraTaken/DefaultPage.dart';
 import 'package:MainCamera/routes.dart';
+
 
 // import 'package:shared_preferences/shared_preferences.dart'; 如需要alert對話窗(首次啟動顯示，再uncomment)
 

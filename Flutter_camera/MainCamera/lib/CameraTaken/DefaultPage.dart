@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                       color: Colors.blueAccent,
                       child: Text("拍照", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/CameraScreen');  // 1-1-1 跳頁至拍照畫面
+                        Navigator.popAndPushNamed(context, '/CameraScreen');  // 1-4-1 跳頁至拍照畫面
                       },
                     ),
                     ),
@@ -74,7 +74,7 @@ class MyHomePage extends StatelessWidget {
                       color: Colors.yellowAccent,
                       child: Text("從手機取得圖片", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/FromGalleryScreen');  // 1-1-2 跳頁至從手機取得圖片
+                        Navigator.popAndPushNamed(context, '/FromGalleryScreen');  // 1-4-2 跳頁至從手機取得圖片
                           },
                           ),
                     ),
