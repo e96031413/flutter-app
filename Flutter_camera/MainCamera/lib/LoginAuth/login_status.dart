@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:MainCamera/login_page.dart';
+import 'package:MainCamera/LoginAuth/login_page.dart';
 import 'package:MainCamera/LoginAuth/sign_in.dart';
 import 'package:MainCamera/main.dart';
 

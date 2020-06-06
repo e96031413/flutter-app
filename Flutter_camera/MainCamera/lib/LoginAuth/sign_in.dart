@@ -41,11 +41,11 @@ Future<String> signInWithGoogle() async {
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-  return 'signInWithGoogle succeeded: $user';
+  return '登入成功: $user';
 }
 
 void signOutGoogle() async {
   await googleSignIn.signOut();
 
-  print("User Sign Out");
+  print("使用者登出");
 }

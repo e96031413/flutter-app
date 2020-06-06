@@ -46,8 +46,8 @@ dependencies:
   http: ^0.12.1  #連接RemoveBackgroung API的套件
   dart_random_choice: ^0.0.2 #隨機選擇API Key
   flutter_rounded_progress_bar: ^0.1.2 #進度條
-  firebase_auth: ^0.15.2 #firebase驗證
-  google_sign_in: ^4.1.0 #google登入驗證
+  firebase_auth: ^0.16.1 #firebase驗證
+  google_sign_in: ^4.5.1 #google登入驗證
 
 dev_dependencies:
   flutter_test:
@@ -67,8 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/splash.jpg
-    - assets/images/test.gif
-    - assets/images/google_logo.png
+    - assets/google_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
