@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/CameraTaken/CameraTaken.dart';
+import 'package:MainCamera/CameraTaken/PickFromGallery.dart';
 import 'dart:async';
 import 'package:permissions_plugin/permissions_plugin.dart';
+import 'package:MainCamera/LoginAuth/login_page.dart';
 // import 'package:shared_preferences/shared_preferences.dart'; 如需要alert對話窗(首次啟動顯示，再uncomment)
 
-void main() => runApp(MyApp());
+void main() => runApp(MyAppMain());
 
-class MyApp extends StatelessWidget {
+class MyAppMain extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
+      routes: <String, WidgetBuilder> {
+          '/MyHomePage': (BuildContext context) => new MyHomePage(),
+          '/CameraScreen' : (BuildContext context) => new CameraScreen(),
+          '/FromGalleryScreen' : (BuildContext context) => new FromGalleryScreen(),
+        },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -43,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                 children: [ResponsiveGridCol(
                     lg: 12,
                     child: Container(
-                      height: 600,
+                      height: 562,
                       alignment: Alignment.center,
                       color: Colors.purpleAccent,
                       child: Text('廣告頁', style: TextStyle(color: Colors.white ,fontSize: 30, fontWeight: FontWeight.w500)),
@@ -54,19 +69,46 @@ class MyHomePage extends StatelessWidget {
                     md: 12,
                     child: ButtonTheme(
                       child: Container(
-                        height: 85,
+                        height: 60,
                       child: new RaisedButton(
-                      color: Colors.yellowAccent,
+                      color: Colors.blueAccent,
                       child: Text("拍照", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
-                        Navigator.push(
-                          context, new MaterialPageRoute(builder: (context) => new CameraScreen()),
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CameraScreen();
+                            },
+                          ),
                         );
                       },
                     ),
                     ),
                   ),
-        )]),
+                  ),
+                  ResponsiveGridCol(
+                    xs: 12,
+                    md: 12,
+                    child: ButtonTheme(
+                      child: Container(
+                        height: 60,
+                      child: new RaisedButton(
+                      color: Colors.yellowAccent,
+                      child: Text("從手機取得圖片", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return FromGalleryScreen();
+                            },
+                          ),
+                        );                      },
+                    ),
+                    ),
+                  ),
+                  )
+                  ]
+        ),
         
     ),
       ),

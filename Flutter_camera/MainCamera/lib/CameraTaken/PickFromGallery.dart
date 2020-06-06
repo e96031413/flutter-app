@@ -6,9 +6,10 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:MainCamera/CameraTaken/preview_screen.dart';
 
-void main() => runApp(new CameraScreen());
 
-class CameraScreen extends StatelessWidget {
+void main() => runApp(new FromGalleryScreen());
+
+class FromGalleryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -18,6 +19,7 @@ class CameraScreen extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
+
   @override
   HomeScreenState createState() => new HomeScreenState();
 }
@@ -37,8 +39,9 @@ class HomeScreenState extends State<HomeScreen> with AfterLayoutMixin<HomeScreen
     // Calling the same function "after layout" to resolve the issue.
     _takePhoto();
   }
+
   void _takePhoto() async {
-    ImagePicker.pickImage(source: ImageSource.camera)
+    ImagePicker.pickImage(source: ImageSource.gallery)
         .then((File recordedImage) {
       if (recordedImage != null && recordedImage.path != null) {
         setState(() {

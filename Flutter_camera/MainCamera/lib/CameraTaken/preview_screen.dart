@@ -12,7 +12,6 @@ import 'package:MainCamera/Layout/ChooseLayout.dart';
 import 'package:dart_random_choice/dart_random_choice.dart';
 
 
-
 class PreviewImageScreen extends StatefulWidget {
   final String imagePath;
 
@@ -39,7 +38,6 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     final response = await http.post('https://api.remove.bg/v1.0/removebg', 
         body: body,
         headers: headers);
-
     if (response.statusCode == 200) {
       print("API Used:" + apikey);
       var documentDirectory = await getApplicationDocumentsDirectory();
@@ -126,7 +124,9 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
       ),
       ),
     );
-  }else {
+  }
+
+else {
       return MaterialApp(
         home: Scaffold(
       body: HomePage(),
@@ -139,15 +139,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  backgroundColor: Colors.blueAccent,
-  body: Center(
-      //↓↓↓更改此處程式碼↓↓↓
-      child: Text('載入中請稍後......',
-                  style:new TextStyle(
-                  color: Colors.white,
-                  fontSize: 40.0,),
-              ),
-        )
+      backgroundColor: Colors.blueAccent,
+      body: Center(
+        child: CircularProgressIndicator(
+        backgroundColor: Colors.grey[200],
+        valueColor: AlwaysStoppedAnimation(Colors.blue),
+    ),
+      )
     );
   }
 }
