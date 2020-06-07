@@ -16,97 +16,118 @@ class ChooseLayoutScreen extends StatefulWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("拍照APP"),
-        centerTitle: true,
-        backgroundColor: Colors.blueAccent
-      ),
+          title: Text("拍照APP"),
+          centerTitle: true,
+          backgroundColor: Colors.blueAccent),
     );
   }
 }
 
 // 6-1 挑版型主頁(靜態UI)
 class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
-      @override
-      Widget build(BuildContext context){
-          return new Scaffold(
-              appBar: new AppBar(
-                  title: new Text("挑版型"),
-                  centerTitle: true,
-                  backgroundColor: Colors.blueAccent,
-              ),
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("挑版型"),
+          centerTitle: true,
           backgroundColor: Colors.blueAccent,
-        body:
-        Center(
-          child:SingleChildScrollView(
-          child: Container(
-          child: ResponsiveGridRow(
-            children: [ResponsiveGridCol(
+        ),
+        backgroundColor: Colors.blueAccent,
+        body: Center(
+          child: SingleChildScrollView(
+              child: Container(
+            child: ResponsiveGridRow(children: [
+              ResponsiveGridCol(
                 xs: 12,
                 md: 12,
                 child: ButtonTheme(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(800)),
                   child: new RaisedButton(
-                  color: Colors.cyanAccent,
-                  child: Text("1吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                  onPressed: () {
-                    Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutOneScreen(imagePath: widget.imagePath)), // 6-1-1 進入1吋版型頁面
-                      );
-                  }
-                ),
+                      color: Colors.cyanAccent,
+                      child: Text("1吋",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new LayoutOneScreen(
+                                  imagePath:
+                                      widget.imagePath)), // 6-1-1 進入1吋版型頁面
+                        );
+                      }),
                 ),
               ),
               ResponsiveGridCol(
                 xs: 12,
                 md: 12,
                 child: ButtonTheme(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(800)),
                   child: new RaisedButton(
-                  color: Colors.cyanAccent,
-                  child: Text("2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                  onPressed: () {
-                    Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutTwoScreen(imagePath: widget.imagePath)), // 6-1-2 進入2吋版型頁面
-                      );
-                  }
-                ),
+                      color: Colors.cyanAccent,
+                      child: Text("2吋",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new LayoutTwoScreen(
+                                  imagePath:
+                                      widget.imagePath)), // 6-1-2 進入2吋版型頁面
+                        );
+                      }),
                 ),
               ),
               ResponsiveGridCol(
                 xs: 12,
                 md: 12,
                 child: ButtonTheme(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(800)),
                   child: new RaisedButton(
-                  color: Colors.cyanAccent,
-                  child: Text("1吋+2吋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                  onPressed: () {
-                    Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutThreeScreen(imagePath: widget.imagePath)), // 6-1-3 進入1吋+2吋版型頁面
-                      );
-                  }
-                ),
+                      color: Colors.cyanAccent,
+                      child: Text("1吋+2吋",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new LayoutThreeScreen(
+                                  imagePath:
+                                      widget.imagePath)), // 6-1-3 進入1吋+2吋版型頁面
+                        );
+                      }),
                 ),
               ),
               ResponsiveGridCol(
                 xs: 12,
                 md: 12,
                 child: ButtonTheme(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(800)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(800)),
                   child: new RaisedButton(
-                  color: Colors.cyanAccent,
-                  child: Text("合成照", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                  onPressed: () {
-                    Navigator.push(context,new MaterialPageRoute(
-                      builder: (context) => new LayoutDefaultScreen(imagePath: widget.imagePath)), // 6-1-4 進入合成照版型頁面
-                      );
-                  }
-                ),
+                      color: Colors.cyanAccent,
+                      child: Text("合成照",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new LayoutDefaultScreen(
+                                  imagePath:
+                                      widget.imagePath)), // 6-1-4 進入合成照版型頁面
+                        );
+                      }),
                 ),
               ),
             ]),
-        )
-    ),
-    ));
+          )),
+        ));
   }
 }

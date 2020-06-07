@@ -13,102 +13,106 @@ import 'package:intl/intl.dart';
 // 6-2-1 1吋版型的主頁
 void main() => runApp(new MaterialApp(home: LayoutOneScreen()));
 
-class LayoutOneScreen extends StatefulWidget  {
+class LayoutOneScreen extends StatefulWidget {
   final String imagePath;
   LayoutOneScreen({this.imagePath});
   @override
   _LayoutOneScreenState createState() => _LayoutOneScreenState();
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold()
-    );
+    return MaterialApp(home: Scaffold());
   }
 }
+
 class _LayoutOneScreenState extends State<LayoutOneScreen> {
-  
   Future<void> _shareImage() async {
     try {
       var now = new DateTime.now();
-      var formatter = new DateFormat('yyyy-MM-dd--hh-mm-ss');    
+      var formatter = new DateFormat('yyyy-MM-dd--hh-mm-ss');
       String formattedDate = formatter.format(now);
       String ext = ".jpg";
-      String fileName = formattedDate+ext;
+      String fileName = formattedDate + ext;
       File imageShare = File(widget.imagePath);
       List<int> bytes = await imageShare.readAsBytes();
       Uint8List ubytes = Uint8List.fromList(bytes);
-      await Share.file(
-          '分享圖片', fileName, ubytes, 'image/jpg');
+      await Share.file('分享圖片', fileName, ubytes, 'image/jpg');
     } catch (e) {
       print('error: $e');
     }
   }
+
   GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-    key: _globalKey,
-    child: Scaffold(
-
-    body: OrientationBuilder(
-      builder: (context, orientation) {
+      key: _globalKey,
+      child: Scaffold(body: OrientationBuilder(builder: (context, orientation) {
         return GridView.count(
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          childAspectRatio: 1,
-          children: <Widget>[
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Image.file(File(widget.imagePath)),
-                    Center(
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                      onPressed: _shareImage,
-                      color: Colors.cyanAccent,
-                      child: Text("分享", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-                      )
-                    ),
-                    Center(
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                      onPressed:(){
-                      Navigator.push(context,new MaterialPageRoute(
-                        builder: (context) => new PrintingApp(imagePath: widget.imagePath)
-                      ));
-                      },
-                      color: Colors.cyanAccent,
-                      child: Text("列印", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-                      )
-                    ),
-                    Center(
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                      onPressed:_capturePng,
-                      color: Colors.cyanAccent,
-                      child: Text("截圖", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-                      )
-                    ),
-                    Center(
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                      onPressed: () {
-                          Navigator.pop(context);
-                      },
-                      color: Colors.cyanAccent,
-                      child: Text("回上頁", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-                      )
-                    ),
-          ]
-      );
-      })
-          ),
-  );
-}
-Future<Uint8List> _capturePng() async {
+            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+            childAspectRatio: 1,
+            children: <Widget>[
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath)),
+              Center(
+                  child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                onPressed: _shareImage,
+                color: Colors.cyanAccent,
+                child: Text("分享",
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+              )),
+              Center(
+                  child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) =>
+                              new PrintingApp(imagePath: widget.imagePath)));
+                },
+                color: Colors.cyanAccent,
+                child: Text("列印",
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+              )),
+              Center(
+                  child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                onPressed: _capturePng,
+                color: Colors.cyanAccent,
+                child: Text("截圖",
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+              )),
+              Center(
+                  child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                color: Colors.cyanAccent,
+                child: Text("回上頁",
+                    style:
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+              )),
+            ]);
+      })),
+    );
+  }
+
+  Future<Uint8List> _capturePng() async {
     try {
       RenderRepaintBoundary boundary =
           _globalKey.currentContext.findRenderObject();
@@ -141,7 +145,7 @@ Future<Uint8List> _capturePng() async {
         );
       });
 
-    return uint8list;
+      return uint8list;
     } catch (e) {
       print(e);
     }

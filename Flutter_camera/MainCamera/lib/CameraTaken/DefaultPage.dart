@@ -15,11 +15,11 @@ class DefaultPage extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
-      routes: <String, WidgetBuilder> {
-          '/MyHomePage': (BuildContext context) => new MyHomePage(),
-          '/CameraScreen' : (BuildContext context) => new CameraScreen(),
-          '/FromGalleryScreen' : (BuildContext context) => new FromGalleryScreen(),
-        },
+      routes: <String, WidgetBuilder>{
+        '/MyHomePage': (BuildContext context) => new MyHomePage(),
+        '/CameraScreen': (BuildContext context) => new CameraScreen(),
+        '/FromGalleryScreen': (BuildContext context) => new FromGalleryScreen(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -35,58 +35,64 @@ class MyHomePage extends StatelessWidget {
       backgroundColor: Colors.blueAccent,
       body: Padding(
         padding: EdgeInsets.all(0.0),
-        child:SingleChildScrollView(
-        child: Container(
-        child: 
-        ResponsiveGridRow(
-                children: [ResponsiveGridCol(
-                    lg: 12,
-                    child: Container(
-                      height: 562,
-                      alignment: Alignment.center,
-                      color: Colors.purpleAccent,
-                      child: Text('廣告頁', style: TextStyle(color: Colors.white ,fontSize: 30, fontWeight: FontWeight.w500)),
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 12,
-                    md: 12,
-                    child: ButtonTheme(
-                      child: Container(
-                        height: 60,
-                      child: new RaisedButton(
+        child: SingleChildScrollView(
+          child: Container(
+            child: ResponsiveGridRow(children: [
+              ResponsiveGridCol(
+                lg: 12,
+                child: Container(
+                  height: 562,
+                  alignment: Alignment.center,
+                  color: Colors.purpleAccent,
+                  child: Text('廣告頁',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500)),
+                ),
+              ),
+              ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  child: Container(
+                    height: 60,
+                    child: new RaisedButton(
                       color: Colors.blueAccent,
-                      child: Text("拍照", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
+                      child: Text("拍照",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/CameraScreen');  // 1-4-1 跳頁至拍照畫面
+                        Navigator.popAndPushNamed(
+                            context, '/CameraScreen'); // 1-4-1 跳頁至拍照畫面
                       },
                     ),
-                    ),
                   ),
-                  ),
-                  ResponsiveGridCol(
-                    xs: 12,
-                    md: 12,
-                    child: ButtonTheme(
-                      child: Container(
-                        height: 60,
-                      child: new RaisedButton(
+                ),
+              ),
+              ResponsiveGridCol(
+                xs: 12,
+                md: 12,
+                child: ButtonTheme(
+                  child: Container(
+                    height: 60,
+                    child: new RaisedButton(
                       color: Colors.yellowAccent,
-                      child: Text("從手機取得圖片", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100)),
+                      child: Text("從手機取得圖片",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w100)),
                       onPressed: () {
-                        Navigator.popAndPushNamed(context, '/FromGalleryScreen');  // 1-4-2 跳頁至從手機取得圖片
-                          },
-                          ),
-                    ),
+                        Navigator.popAndPushNamed(
+                            context, '/FromGalleryScreen'); // 1-4-2 跳頁至從手機取得圖片
+                      },
                     ),
                   ),
-                  ]
+                ),
+              ),
+            ]),
+          ),
         ),
-        
-    ),
       ),
-        ),
-
     );
   }
 }
