@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:MainCamera/LoginAuth/sign_in.dart';
 import 'package:get_mac/get_mac.dart'; // 取得mac地址
 import 'package:flutter/services.dart';
+import 'package:MainCamera/CameraTaken/DefaultPage.dart';
 
 // 1. 主畫面(登入Google帳號)
 class LoginPage extends StatefulWidget {
@@ -11,9 +13,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _platformVersion = 'Unknown';
+  bool isLoggedIn; // 檢查是否登入Google帳戶
 
   @override
   void initState() {
+    isLoggedIn = false;
+    FirebaseAuth.instance.currentUser().then((user) => user != null
+        ? setState(() {
+            isLoggedIn = true;
+          })
+        : null);
     super.initState();
     initPlatformState(); // 渲染此頁面時，執行取得Mac Address的函數
   }
@@ -33,27 +42,30 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       // 1-2-2 更新狀態，取得正式的 Mac Address
       _platformVersion = platformVersion;
+      print('MAC Address : $_platformVersion');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FlutterLogo(size: 150),
-              SizedBox(height: 50),
-              _signInButton(),
-            ],
-          ),
-        ),
-      ),
-    );
+    return isLoggedIn
+        ? new DefaultPage()
+        : new Scaffold(
+            body: Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlutterLogo(size: 150),
+                    SizedBox(height: 50),
+                    _signInButton(),
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 
   // 1-3 Sign In功能，當登入完成後，進入登入狀態頁面

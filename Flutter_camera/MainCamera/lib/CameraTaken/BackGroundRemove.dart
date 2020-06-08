@@ -1,14 +1,13 @@
-import 'dart:io';
 import 'dart:convert';
-import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
+import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:responsive_grid/responsive_grid.dart';
 import 'package:MainCamera/ImageFilter/ImageFilter.dart';
 import 'package:MainCamera/Layout/ChooseLayout.dart';
-
 import 'package:dart_random_choice/dart_random_choice.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 // 3. 去背功能+去背後預覽
 class PreviewImageScreen extends StatefulWidget {
