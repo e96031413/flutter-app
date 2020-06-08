@@ -1,9 +1,9 @@
+import 'package:MainCamera/CameraTaken/DefaultPage.dart';
+import 'package:MainCamera/LoginAuth/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:MainCamera/LoginAuth/sign_in.dart';
-import 'package:get_mac/get_mac.dart'; // 取得mac地址
 import 'package:flutter/services.dart';
-import 'package:MainCamera/CameraTaken/DefaultPage.dart';
+import 'package:get_mac/get_mac.dart'; // 取得mac地址
 
 // 1. 主畫面(登入Google帳號)
 class LoginPage extends StatefulWidget {

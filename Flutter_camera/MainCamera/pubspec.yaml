@@ -52,8 +52,8 @@ dependencies:
   googleapis: any
   googleapis_auth: any
   file_picker: ^1.3.8
-  url_launcher: ^5.4.10
   get_mac: ^0.0.1 #取得網路mac address
+  url_launcher: ^5.1.2
 
 dev_dependencies:
   flutter_test:

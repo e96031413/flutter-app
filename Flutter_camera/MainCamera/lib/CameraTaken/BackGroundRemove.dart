@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:MainCamera/GoogleDrive/googleDrive.dart';
 
 // 3. 去背功能+去背後預覽
 class PreviewImageScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class PreviewImageScreen extends StatefulWidget {
 }
 
 class _PreviewImageScreenState extends State<PreviewImageScreen> {
+  
   @override
   initState() {
     _asyncMethod();
@@ -47,7 +49,7 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
       var documentDirectory =
           await getApplicationDocumentsDirectory(); // 取得APP的路徑位置
       var firstPath = documentDirectory.path + "/images";
-      var filePathAndName = documentDirectory.path + '/images/pic.jpg';
+      var filePathAndName = documentDirectory.path + '/images/pic.png';
       await Directory(firstPath).create(recursive: true); // 建立資料夾
       File file2 =
           new File(filePathAndName); // 新建file2檔案，檔名用filePathAndName變數產生的檔名
@@ -66,9 +68,12 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
 
   String imageData;
   bool dataLoaded = false; // 圖片回傳預設 = false，代表初始還沒去背狀態
-
+  
+  // 3-2 初始化GoogleDrive
+  final drive = GoogleDrive();
   Widget build(BuildContext context) {
     if (dataLoaded) {
+      drive.upload(File(imageData));   // 3-2-1執行上傳動作
       // 3-1-1 假設回傳 = true，顯示以下UI畫面(去背圖片效果顯示)
       return Scaffold(
         appBar: AppBar(
