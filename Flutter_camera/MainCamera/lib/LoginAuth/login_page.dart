@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_mac/get_mac.dart'; // 取得mac地址
+import 'package:MainCamera/GoogleDrive/googleDrive.dart';
+
 
 // 1. 主畫面(登入Google帳號)
 class LoginPage extends StatefulWidget {
@@ -45,8 +47,9 @@ class _LoginPageState extends State<LoginPage> {
       print('MAC Address : $_platformVersion');
     });
   }
-
+  final drive = GoogleDrive();
   @override
+
   Widget build(BuildContext context) {
     return isLoggedIn
         ? new DefaultPage()
@@ -74,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
+          drive.login();
           // 1-2-3 在Terminal顯示 Mac Address 的資訊
           print('MAC Address : $_platformVersion');
           // 1-3-1 登入成功後，進入DefaultPage頁面，並刪除之前的所有路由，該頁面變成第一層(使用者無法再回到登入頁面)

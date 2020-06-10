@@ -15,4 +15,5 @@ class MainCameraRoutes {
   static const layoutThree = "/LayoutThreeScreen";
   static const imageLayout = "/ImageLayoutScreen";
   static const printApp = "/PrintingApp";
+  static const googleDriveLogin = "/GoogleDriveLoginWebViewPage";
 }

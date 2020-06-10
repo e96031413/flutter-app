@@ -1,20 +1,21 @@
-import 'package:MainCamera/CameraTaken/CameraTaken.dart';
-import 'package:MainCamera/CameraTaken/PickFromGallery.dart';
+import 'dart:async';
+
 import 'package:MainCamera/CameraTaken/BackGroundRemove.dart';
+import 'package:MainCamera/CameraTaken/CameraTaken.dart';
+import 'package:MainCamera/CameraTaken/DefaultPage.dart';
+import 'package:MainCamera/CameraTaken/PickFromGallery.dart';
 import 'package:MainCamera/ImageFilter/ImageFilter.dart';
 import 'package:MainCamera/Layout/ChooseLayout.dart';
 import 'package:MainCamera/Layout/Layout_default.dart';
 import 'package:MainCamera/Layout/Layout_one.dart';
 import 'package:MainCamera/Layout/Layout_three.dart';
 import 'package:MainCamera/Layout/Layout_two.dart';
+import 'package:MainCamera/LoginAuth/login_page.dart';
 import 'package:MainCamera/PreviewImage/PreviewImage.dart';
 import 'package:MainCamera/PrintingImage/PrintingImage.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:permissions_plugin/permissions_plugin.dart';
-import 'package:MainCamera/LoginAuth/login_page.dart';
-import 'package:MainCamera/CameraTaken/DefaultPage.dart';
 import 'package:MainCamera/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:permissions_plugin/permissions_plugin.dart';
 
 // import 'package:shared_preferences/shared_preferences.dart'; 如需要alert對話窗(首次啟動顯示，再uncomment)
 
@@ -45,6 +46,7 @@ class MyAppMain extends StatelessWidget {
         MainCameraRoutes.layoutThree: (context) => LayoutThreeScreen(),
         MainCameraRoutes.imageLayout: (context) => ImageLayoutScreen(),
         MainCameraRoutes.printApp: (context) => PrintingApp(),
+        // MainCameraRoutes.googleDriveLogin: (context) = GoogleDriveLoginWebViewPage(),
       },
       onGenerateRoute: (settings) {
         //預設進入LoginPage()
