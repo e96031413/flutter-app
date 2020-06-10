@@ -30,7 +30,7 @@ class MyHomePage extends StatelessWidget {
   // final keyIsFirstLoaded = 'is_first_loaded';
   @override
   Widget build(BuildContext context) {
-    // 1-4 避免使用者跳出(跳出Dialog讓使用者選擇)
+    // 1-5 避免使用者跳出(跳出Dialog讓使用者選擇)
     return WillPopScope(
         onWillPop: () async => showDialog(
             context: context,
@@ -76,7 +76,7 @@ class MyHomePage extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.w100)),
                           onPressed: () {
                             Navigator.popAndPushNamed(
-                                context, '/CameraScreen'); // 1-5-1 跳頁至拍照畫面
+                                context, '/CameraScreen'); // 1-6-1 跳頁至拍照畫面
                           },
                         ),
                       ),
@@ -95,7 +95,7 @@ class MyHomePage extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.w100)),
                           onPressed: () {
                             Navigator.popAndPushNamed(context,
-                                '/FromGalleryScreen'); // 1-5-2 跳頁至從手機取得圖片
+                                '/FromGalleryScreen'); // 1-6-2 跳頁至從手機取得圖片
                           },
                         ),
                       ),
