@@ -55,6 +55,7 @@ dependencies:
   get_mac: ^0.0.1 #取得網路mac address
   url_launcher: ^5.1.2
   flutter_webview_plugin: ^0.3.11 
+  flutter_image_editor: ^1.2.0
 
 dev_dependencies:
   flutter_test:

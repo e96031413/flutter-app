@@ -6,7 +6,7 @@ import 'package:MainCamera/CameraTaken/PickFromGallery.dart';
 // 1. 首頁畫面(靜態)
 
 class DefaultPage extends StatelessWidget {
-  // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,8 +26,19 @@ class DefaultPage extends StatelessWidget {
 }
 
 // 1. 首頁畫面(靜態)
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key}) : super(key:key);
+  
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
   // final keyIsFirstLoaded = 'is_first_loaded';
+
+class _MyHomePageState extends State<MyHomePage> {
+  int index = 0;
+
+
+
   @override
   Widget build(BuildContext context) {
     // 1-5 避免使用者跳出(跳出Dialog讓使用者選擇)
@@ -44,7 +55,6 @@ class MyHomePage extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(false)),
                 ])),
         child: Scaffold(
-          backgroundColor: Colors.blueAccent,
           body: Padding(
             padding: EdgeInsets.all(0.0),
             child: SingleChildScrollView(
