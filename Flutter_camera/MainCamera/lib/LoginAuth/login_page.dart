@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     initPlatformState(); // 渲染此頁面時，執行取得Mac Address的函數
   }
 
-  // 1-2 取得Mac Address的主函示
+  // 1-2 取得Mac Address的主函式
   Future<void> initPlatformState() async {
     String platformVersion;
     // 1-2-1 用try-except的方式來獲取 MAC Address
