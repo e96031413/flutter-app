@@ -40,7 +40,7 @@ class MyAppMain extends StatelessWidget {
         MainCameraRoutes.previewImage: (context) => PreviewImageScreen(),
         MainCameraRoutes.imageFilter: (context) => ImageFilterScreen(),
         MainCameraRoutes.chooseLayout: (context) => ChooseLayoutScreen(),
-        MainCameraRoutes.layoutDefault: (context) => LayoutDefaultScreen(),
+        MainCameraRoutes.layoutDefault: (context) => ColorChange(),
         MainCameraRoutes.layoutOne: (context) => LayoutOneScreen(),
         MainCameraRoutes.layoutTwo: (context) => LayoutTwoScreen(),
         MainCameraRoutes.layoutThree: (context) => LayoutThreeScreen(),

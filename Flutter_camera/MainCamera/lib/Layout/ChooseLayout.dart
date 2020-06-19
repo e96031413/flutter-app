@@ -119,8 +119,8 @@ class _ChooseLayoutScreenState extends State<ChooseLayoutScreen> {
                         Navigator.push(
                           context,
                           new MaterialPageRoute(
-                              builder: (context) => new LayoutDefaultScreen(
-                                  imagePath:
+                              builder: (context) => new ColorChange(
+                                imagePath:
                                       widget.imagePath)), // 6-1-4 進入合成照版型頁面
                         );
                       }),
